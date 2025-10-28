@@ -1,7 +1,8 @@
 $(function() {
     // Load and display Hot Wheels inventory
-    function loadInventory() {
-        $.get('Hot Wheels Inventory.csv', function(data) {
+function loadInventory() {
+    console.log('Loading inventory...');
+    $.get('Hot Wheels Inventory.csv', function(data) {
             const lines = data.split('\n');
             const headers = lines[0].split(',');
             const cars = [];
@@ -19,7 +20,7 @@ $(function() {
             }
 
             // Create HTML for each car
-            let html = '<div class="row">';
+            let html = '';
 cars.forEach(car => {
                 const imageIndex = Math.floor(Math.random() * 7); // Use one of the existing images
                 html += `
@@ -35,9 +36,8 @@ cars.forEach(car => {
                     </div>
                 `;
             });
-            html += '</div>'
             // Insert the HTML after the header in the portfolio section
-            $('#portfolio header').after(html);
+            $('#portfolio .row').after(html);
         });
     }
 
