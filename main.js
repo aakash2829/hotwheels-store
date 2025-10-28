@@ -19,7 +19,7 @@ $(function() {
             }
 
             // Create HTML for each car
-            let html = '';
+            let html = '<div class="row">';
 cars.forEach(car => {
                 const imageIndex = Math.floor(Math.random() * 7); // Use one of the existing images
                 html += `
@@ -35,7 +35,7 @@ cars.forEach(car => {
                     </div>
                 `;
             });
-
+            html += '</div>'
             // Insert the HTML after the header in the portfolio section
             $('#portfolio header').after(html);
         });
