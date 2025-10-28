@@ -35,9 +35,14 @@ cars.forEach(car => {
                         </article>
                     </div>
                 `;
+                console.log("in loop", car);
             });
             // Insert the HTML after the header in the portfolio section
-            $('#portfolio .row').append(html);
+
+            console.log(html)
+            var element = $('#portfolio .row');
+            console.log(element);
+            element.append(html);
         });
     }
 
