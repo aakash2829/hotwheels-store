@@ -1,34 +1,46 @@
-/*
-	Miniport by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
+$(function() {
+    // Load and display Hot Wheels inventory
+    function loadInventory() {
+        $.get('Hot Wheels Inventory.csv', function(data) {
+            const lines = data.split('\n');
+            const headers = lines[0].split(',');
+            const cars = [];
 
-(function($) {
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i]) continue;
+                const currentLine = lines[i].split(',');
+                const car = {};
 
-	var	$window = $(window),
-		$body = $('body'),
-		$nav = $('#nav');
+                headers.forEach((header, index) => {
+                    car[header.trim()] = currentLine[index] ? currentLine[index].trim() : '';
+                });
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:  [ '1281px',  '1680px' ],
-			large:   [ '981px',   '1280px' ],
-			medium:  [ '737px',   '980px'  ],
-			small:   [ null,      '736px'  ]
-		});
+                cars.push(car);
+            }
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+            // Create HTML for each car
+            let html = '';
+cars.forEach(car => {
+                const imageIndex = Math.floor(Math.random() * 7); // Use one of the existing images
+                html += `
+                    <div class="col-4 col-6-medium col-12-small">
+                        <article class="box style2">
+                            <a href="#" class="image featured"><img src="images/pic0${imageIndex}.jpg" alt="" /></a>
+                            <h3><a href="#">${car.Brand} ${car.Model}</a></h3>
+                            <p>Series: ${car.Series}<br>
+                               Color: ${car.Color}<br>
+                               In Stock: ${car['In Stock']}<br>
+                               Price: $${car['Selling Price']}</p>
+                        </article>
+                    </div>
+                `;
+            });
 
-	// Scrolly.
-		$('#nav a, .scrolly').scrolly({
-			speed: 1000,
-			offset: function() { return $nav.height(); }
-		});
+            // Insert the HTML after the header in the portfolio section
+            $('#portfolio header').after(html);
+        });
+    }
 
-})(jQuery);
+    // Load inventory when page loads
+    loadInventory();
+});
