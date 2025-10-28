@@ -1,7 +1,8 @@
 $(function() {
     // Load and display Hot Wheels inventory
-    function loadInventory() {
-        $.get('Hot Wheels Inventory.csv', function(data) {
+function loadInventory() {
+    console.log('Loading inventory...');
+    $.get('Hot Wheels Inventory.csv', function(data) {
             const lines = data.split('\n');
             const headers = lines[0].split(',');
             const cars = [];
@@ -34,10 +35,14 @@ cars.forEach(car => {
                         </article>
                     </div>
                 `;
+                console.log("in loop", car);
             });
-
             // Insert the HTML after the header in the portfolio section
-            $('#portfolio header').after(html);
+
+            console.log(html)
+            var element = $('#portfolio .row');
+            console.log(element);
+            element.append(html);
         });
     }
 
