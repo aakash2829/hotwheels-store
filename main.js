@@ -37,7 +37,7 @@ cars.forEach(car => {
                 `;
             });
             // Insert the HTML after the header in the portfolio section
-            $('#portfolio .row').after(html);
+            $('#portfolio .row').append(html);
         });
     }
 
